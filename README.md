@@ -10,6 +10,7 @@ Table of Contents
 * [Pattern Matching](#pattern-matching)
 * [Conditionals](#conditionals)
 * [Strings](#strings)
+* [Keyword Lists and Maps](#keyword-lists-and-maps)
 
 ## Basic Types
 
@@ -422,5 +423,130 @@ iex> 'hełło'
 
 Because charlists are lists :]
 
+## Keyword lists and maps
+
+Associative data structures are structures that associate certain value(s) to a key. Referred to as dictionaries, hashes, etc. Keyword lists and maps are the main ones in Elixir.
+
+### Keyword lists
+
+Elixir uses a list of tuples, and the first item in a key is an atom
+
+```elixir
+list = [{:a, 1}, {:b, 2}]
+# [a: 1, b: 2]
+
+# special syntax for defining a keyword list
+list == [a: 1, b: 2]
+```
+
+We can also use the `++` operator to add new values
+
+```elixir
+list ++ [c: 3]
+# [a: 1, b: 2, c: 3]
+```
+
+First value is the list is the one fetched on lookup
+
+```elixir
+[a: 0, a: 1, b: 2]
+
+new_list[:a]
+# 0
+```
+
+Keyword lists have three special characteristics
+
+* Keys must be atoms
+* Keys are ordered, as specificed by the developer
+* Keys *can* be given more than once
+
+As an example, the `if/2` macro supports the following syntax
+
+```elixir
+if false, do: :this, else: :that
+# :that
+```
+
+The `do:` and `else:` pairs form a keyword list. The call above is equivalent to
+
+```elixir
+if(false, [do: :this, else: :that])
+```
+
+Although we can pattern match on keyword lists, it is rarely done in practice since pattern matching on lists requires the number of items and their order to match.
+
+Keyword lists have the same performance impact as a regular list.
+
+> If you need to store many items or guarantee one-key associations with at maximum one-value, you should use maps instead.
+
+### Maps
+
+Whenever you need a key-value store, maps are the "go to" data structure in Elixir. A map is created using the `%{}` syntax
+
+```elixir
+map = %{:a => 1, 2 => :b}
+map[:a]
+# 1
+map[2]
+# :b
+map[:c]
+# nil
+```
+
+In contrast to keyword lists, maps are great for pattern matching
+
+```elixir
+%{} = %{:a => 1, 2 => :b}
+%{2 => :b, :a => 1}
+%{a => :b, :a => 1}
+1
+%{:c => c} = %{:a => 1, 2 => :b}
+# MatchError!  no match
+```
+
+> An empty map matches all maps
+
+Maps also have their own syntax for accessing atom keys
+
+```elixir
+map = %{:a => 1, 2 => :b}
+map.a
+# 1
+map.c
+# KeyError
+```
+
+### Nested Data structures
+
+Often we will have maps inside maps, keyword lists inside maps, etc. Elixir provides conveniences for nested data structures
+
+Given this structure...
+
+```elixir
+users = [
+    # keyword lists of users where each value is a map
+    john: %{name: "John", age: 22, languages: ["Erlang", "Ruby"]}
+    mary: %{name: "Mary", age: 20, languages: ["Elixir", "F#"]}
+]
+```
+To access the age for john, we could write:
+
+```elixir
+users[:john].age
+```
+
+To update the value
+
+```elixir
+users = put_in users[:john].age, 32
+```
+
+To remove a value
+
+```elixir
+users = update_in users[:mary].languages, fn languages ->
+    List.delete(languages, "F#") end
+```
 
 
