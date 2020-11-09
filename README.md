@@ -9,6 +9,7 @@ Table of Contents
 * [Basic Operators](#basic-operators)
 * [Pattern Matching](#pattern-matching)
 * [Conditionals](#conditionals)
+* [Strings](#strings)
 
 ## Basic Types
 
@@ -19,7 +20,7 @@ integer, float, boolean, **atom**, **symbol**, string, list, tuple
 > what do atoms actually do?
 uses `:atom` notation
 
-### Funcions
+### Functions
 
 Functions are identified _both_ by name and arity.
 
@@ -337,12 +338,89 @@ end
 # 13
 ```
 
-Do/end blocks are always bound to the outermost function call.
+`Do/end` blocks are always bound to the outermost function call.
 
+## Strings
 
+Strings are very comprehensive in Elixir, and follow a more-developed spec than in other languages.
 
+### Unicode and Code Points
 
+The Unicode standard acts as an official registry of virtually all characters. Unicode organizes all the characters into charts, and each is given an index known as a Code Point.
 
+In elixir, you can use the `?` operator in front of a literal to reveal its code point
+
+```elixir
+?a
+# 97
+?é
+# 233
+```
+
+### UTF-8 and Encodings
+
+Whereas the code point is *what* we store, encodings are *how* we store them. Encoding is just an implementation. UTF-8 uses _variable width_ character encoding.
+
+> `String.length/1` counts graphemes but `byte_size/1` counts raw bytes!
+
+A common trick in Elixir is to see the binary representation of a string by concatenating the null byte `<<0>>` to it
+
+```elixir
+"hełło" <> <<0>>
+# <<104, 101, 197, 130, 197, 130, 111, 0>>
+"Pokémon" <> <<0>>
+# <<80, 111, 107, 195, 169, 109, 111, 110, 0>>
+```
+
+Note that both of these have the `0` from the null byte at the end
+
+Or by using `IO.inspect/2`
+
+```elixir
+IO.inspect("hełło", binaries: :as_binaries)
+# <<104, 101, 197, 130, 197, 130, 111>>
+```
+
+### Bitstrings
+
+Bitstrings are a fundamental data type in Elixir, denoted with `<<>>` syntax. *A bitstring is a contiguous sequences of bits in memory*
+
+When a value exceeds the number of bits it can hold, it gets cut off
+
+```elixir
+<<1>> === <<257>>
+# true
+```
+
+### Binaries
+
+A binary is a bitstring where the number of bits is divisible by 8
+
+```bash
+iex> is_binary("hello")
+true
+iex> is_binary(<<239, 191, 19>>)
+true
+iex> String.valid?(<<239, 191, 19>>)
+false
+```
+
+### Charlists
+
+A charlist is a list of integers where all the integers are valid code points. Whereas strings (i.e. binaries) are created using double-quotes, charlists are single quoted.
+
+By default, only code points above ASCII get printed as lists
+
+```bash
+iex> 'hello'
+'hello'
+iex> 'hełło'
+[104, 101, 322, 322, 111]
+```
+
+> Strings use `<>` to concatenate but lists use `++`
+
+Because charlists are lists :]
 
 
 
