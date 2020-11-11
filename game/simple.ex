@@ -16,19 +16,22 @@ defmodule Player do
 
   @monsters %{
     1 => %{
-      :display => "[IMP]",
+      :name => "imp",
+      :display => "👿",
       :attack => 4,
       :hp => 5,
       :base_exp => 30,
     },
     2 => %{
-      :display => "[WINGED_IMP]",
+      :name => "winged imp",
+      :display => "🦇👿",
       :attack => 5,
       :hp => 5,
       :base_exp => 40,
     },
     3 => %{
-      :display => "[NAGA]",
+      :name => "naga",
+      :display => "🐍🙍",
       :attack => 10,
       :hp => 16,
       :base_exp => 45,
@@ -79,6 +82,23 @@ defmodule Player do
       :current_hp => 10,
       :max_hp => 10,
     } end, name: :player)
+  end
+
+  def create_monster(monster) do
+    Agent.start_link(fn -> Map.merge(
+      monster,
+      %{
+        :current_hp => 10,
+      }
+    ) end, name: :monster)
+  end
+
+  def get_current_monster do
+    Agent.get(:monster, fn n -> n end)
+  end
+
+  def kill_monster do
+    Agent.stop(:monster)
   end
 
   def update_player(key, value) do
@@ -138,21 +158,45 @@ defmodule Player do
 
   def explore_area(area) do
     IO.puts("Exploring #{Atom.to_string(area)} ...")
+    size = map_size @monsters
 
     # 10% chance for nothing to happen
     # 40% chance to fight an enemy
     # 25% chance to find um idk
     # 25% chance also for idk
 
+    rand = Enum.random(@monsters)
+    monster = elem(rand, 1)
+    create_monster(monster)
 
+    IO.puts("A wild #{monster.name} appeared!")
+
+    monster_sequence(monster)
 
   end
 
+  def monster_sequence(monster) do
 
 
-  def create_hp_display do
-    current_hp = Player.get_player()[:current_hp]
-    max_hp = Player.get_player()[:max_hp]
+    number = prompt_parse("""
+╭╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╮
+  What will you do?             > [1] Fight
+                                > [2] Flee
+                                > [3] Bag
+  #{String.capitalize(monster.name)} #{monster.display} HP: #{monster.hp}
+╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+""")
+  end
+
+  def choose(map) do
+    # @TODO: replace stub
+  end
+
+
+  def create_hp_display(current \\ -1, max \\ -1) do
+    # @TODO: figure out a better way to do this!!
+    current_hp = if (current == -1), do: Player.get_player()[:current_hp], else: current
+    max_hp = if (max == -1), do: Player.get_player()[:max_hp], else: max
     # hp_diff = max_hp - current_hp
     # hps = Enum.map(1..current_hp, fn x -> "*" end)
     hps = Enum.reduce(
