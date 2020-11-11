@@ -109,11 +109,13 @@ defmodule Player do
       |> Stream.zip(items)
       |> Enum.into(%{})
 
-    message = Enum.map(with_indices, fn {k, v} ->
-      str = Atom.to_string(v)
-      n_cap = String.capitalize(str)
-      "  [#{k}] #{String.capitalize(str)} #{@areas[v].display}\n"
-    end)
+    message = with_indices
+      |> Enum.map(fn {k, v} ->
+        str = Atom.to_string(v)
+        n_cap = String.capitalize(str)
+        "  [#{k}] #{String.capitalize(str)} #{@areas[v].display}\n"
+      end)
+
     number = prompt_parse(message)
     is_valid = 0 < number and number < 5
 
