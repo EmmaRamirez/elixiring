@@ -14,11 +14,36 @@ defmodule Player do
     }
   }
 
+  @monsters %{
+    1 => %{
+      :display => "[IMP]",
+      :attack => 4,
+      :hp => 5,
+      :base_exp => 30,
+    },
+    2 => %{
+      :display => "[WINGED_IMP]",
+      :attack => 5,
+      :hp => 5,
+      :base_exp => 40,
+    },
+    3 => %{
+      :display => "[NAGA]",
+      :attack => 10,
+      :hp => 16,
+      :base_exp => 45,
+    }
+
+  }
+
   def create_player do
     Agent.start_link(fn -> %{
       :attack => 10,
       :defense => 10,
       :special => 10,
+      :exp => 0,
+      :level => 1,
+      :exp_needed_for_next_level => 100,
       :stats => %{},
       :class => :warrior,
       :inventory => %{
@@ -80,11 +105,48 @@ defmodule Player do
   def print_areas do
     items = Enum.sort(Map.keys(@areas))
 
-    Enum.map(items, fn v ->
-      n_cap = String.capitalize(Atom.to_string(v))
-      IO.puts("#{String.capitalize(Atom.to_string(v))} #{@areas[v].display}")
+    with_indices = 1..length(items)
+      |> Stream.zip(items)
+      |> Enum.into(%{})
+
+    message = Enum.map(with_indices, fn {k, v} ->
+      str = Atom.to_string(v)
+      n_cap = String.capitalize(str)
+      "  [#{k}] #{String.capitalize(str)} #{@areas[v].display}\n"
     end)
+    number = prompt_parse(message)
+    is_valid = 0 < number and number < 5
+
+    IO.puts(is_valid)
+
+    if is_valid do
+      cond do
+        number == 1 -> explore_area(Map.get(with_indices, 1))
+        number == 2 -> explore_area(Map.get(with_indices, 2))
+        number == 3 -> explore_area(Map.get(with_indices, 3))
+        number == 4 -> explore_area(Map.get(with_indices, 4))
+        true -> IO.puts("Cool")
+      end
+    else
+      IO.puts("Could not recognize that command.")
+      print_areas()
+    end
+
   end
+
+  def explore_area(area) do
+    IO.puts("Exploring #{Atom.to_string(area)} ...")
+
+    # 10% chance for nothing to happen
+    # 40% chance to fight an enemy
+    # 25% chance to find um idk
+    # 25% chance also for idk
+
+
+
+  end
+
+
 
   def create_hp_display do
     current_hp = Player.get_player()[:current_hp]
