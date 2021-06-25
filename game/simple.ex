@@ -1,4 +1,6 @@
 defmodule Player do
+  use Agent
+
   @areas %{
     :mountain => %{
       :display => "⛰️",
@@ -36,7 +38,24 @@ defmodule Player do
       :hp => 16,
       :base_exp => 45,
     }
+  }
 
+  @classes %{
+    1 => %{
+      :name => :warrior,
+      :display => "⚔️",
+      :bonus => :attack,
+    },
+    2 => %{
+      :name => :mage,
+      :display => "🔮",
+      :bonus => :special,
+    },
+    3 => %{
+      :name => :knight,
+      :display => "🛡️",
+      :bonus => :defense,
+    }
   }
 
   def create_player do
@@ -56,22 +75,22 @@ defmodule Player do
           :description => "Heals 10 HP."
         },
         :vial => %{
-          :quantity => 1,
+          :quantity => 0,
           :display => "⚗️",
           :description => "Heals 30 HP."
         },
         :fruit => %{
-          :quantity => 1,
+          :quantity => 0,
           :display => "🥝",
           :description => ""
         },
         :meat => %{
-          :quantity => 1,
+          :quantity => 0,
           :display => "🍖",
           :description => "",
         },
         :amphora => %{
-          :quantity => 1,
+          :quantity => 0,
           :display => "🏺",
           :description => "",
         }
@@ -156,14 +175,17 @@ defmodule Player do
 
   end
 
+  def rest() do
+    IO.puts("You rested, restoring HP ✨")
+  end
+
   def explore_area(area) do
     IO.puts("Exploring #{Atom.to_string(area)} ...")
     size = map_size @monsters
 
-    # 10% chance for nothing to happen
-    # 40% chance to fight an enemy
-    # 25% chance to find um idk
-    # 25% chance also for idk
+    # @TODO: refactor to use weights??
+    rand = Enum.random([:nothing, :enemy, :enemy, :enemy, :enemy, :item, :item, :alternate])
+    IO.puts(rand)
 
     rand = Enum.random(@monsters)
     monster = elem(rand, 1)
@@ -176,8 +198,6 @@ defmodule Player do
   end
 
   def monster_sequence(monster) do
-
-
     number = prompt_parse("""
 ╭╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╾╮
   What will you do?             > [1] Fight
@@ -186,6 +206,43 @@ defmodule Player do
   #{String.capitalize(monster.name)} #{monster.display} HP: #{monster.hp}
 ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
 """)
+    cond do
+      number == 1 -> fight_monster(monster)
+      number == 2 -> IO.puts("You fleed from the #{String.capitalize(monster.name)}!")
+      number == 3 -> use_item(monster)
+    end
+  end
+
+  def use_item(monster) do
+
+  end
+
+  def award_exp(monster) do
+    new_exp = Player.get_player()[:exp] + monster.base_exp
+    update_player(:exp, new_exp)
+
+    if Player.get_player()[:exp_needed_for_next_level] <= 0 do
+
+    end
+  end
+
+  def fight_monster(monster) do
+    monster_attack = get_current_monster()[:attack] - Player.get_player()[:defense]
+    new_player_hp = Player.get_player()[:current_hp] - monster_attack
+    monster_hp = get_current_monster()[:current_hp] - Player.get_player()[:attack]
+    IO.puts("You took #{monster_attack} damage!")
+    update_player(:current_hp, new_player_hp)
+
+    if new_player_hp <= 0 do
+      tombstone_check()
+    else
+      if monster_hp <= 0 do
+        IO.puts("The monster was slain!")
+
+      else
+        fight_monster(monster)
+      end
+    end
   end
 
   def choose(map) do
@@ -231,14 +288,22 @@ defmodule Player do
     end
   end
 
-  def prompt_action do
-    print_inventory()
-    current_hp = Player.get_player()[:current_hp]
-    max_hp = Player.get_player()[:max_hp]
+  def prompt_name(prompt \\ "What is your name?") do
+    name = IO.gets(prompt)
+    update_player(:name, name)
+  end
 
+  def tombstone_check do
+    current_hp = Player.get_player()[:current_hp]
     if current_hp <= 0 do
       print_tombstone()
     end
+  end
+
+  def prompt_action do
+    print_inventory()
+    tombstone_check()
+    max_hp = Player.get_player()[:max_hp]
 
     number = prompt_parse("""
       What is your next course of action?
@@ -253,6 +318,7 @@ defmodule Player do
     if is_valid do
       cond do
         number == 1 -> print_areas()
+        number == 2 -> rest()
         number == 3 -> print()
         number == 4 -> print_inventory()
         true -> IO.puts("Cool")
@@ -287,6 +353,10 @@ defmodule Player do
 
   def prompt_class do
     # answer = IO.gets("Hello! Welcome to Buttslandia! What class of character shall you select?\n[1] Warrior (+5 Attack)\n[2] Mage (+5 Special)\n[3] Knight (+5 Defense)\n")
+    name = prompt_parse("""
+      What is your name?
+    """)
+
     number = prompt_parse("""
       Hello! Welcome to Buttslandia! What class of character shall you select?
       [1] ⚔️ Warrior (+5 Attack)
