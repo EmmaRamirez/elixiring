@@ -1,3 +1,5 @@
+import Tombstone
+
 defmodule Player do
   use Agent
 
@@ -269,7 +271,7 @@ defmodule Player do
   end
 
   def end_game do
-    print_tombstone()
+    Tombstone.print()
     Agent.stop(:player, :term)
   end
 
@@ -296,7 +298,7 @@ defmodule Player do
   def tombstone_check do
     current_hp = Player.get_player()[:current_hp]
     if current_hp <= 0 do
-      print_tombstone()
+      Tombstone.print()
     end
   end
 
@@ -379,26 +381,6 @@ defmodule Player do
     end
   end
 
-  def print_tombstone do
-    IO.puts("""
-        _.---,._,'
-        /' _.--.<
-          /'     `'
-        /' _.---._____
-        \.'   ___, .-'`
-            /'    \\             .
-          /'       `-.          -|-
-        |                       |
-        |                   .-'~~~`-.
-        |                 .'         `.
-        |                 |  R  I  P  |
-        |                 |           |
-        |                 |           |
-         \              \\|           |//
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                            YOU DIED!
-    """)
-  end
 
   def print() do
     data = Player.get_player
