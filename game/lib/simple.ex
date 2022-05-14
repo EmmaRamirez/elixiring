@@ -1,5 +1,3 @@
-import Tombstone
-
 defmodule Player do
   use Agent
 
@@ -271,7 +269,7 @@ defmodule Player do
   end
 
   def end_game do
-    Tombstone.print()
+    #Tombstone.print()
     Agent.stop(:player, :term)
   end
 
@@ -298,7 +296,7 @@ defmodule Player do
   def tombstone_check do
     current_hp = Player.get_player()[:current_hp]
     if current_hp <= 0 do
-      Tombstone.print()
+      #Tombstone.print()
     end
   end
 
