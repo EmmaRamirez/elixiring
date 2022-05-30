@@ -1,0 +1,671 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Elixir</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="fb96a97e-a96c-4c28-a050-b4a58a4edce7" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="elixir-plain.svg"/></div><h1 class="page-title">Elixir</h1></header><div class="page-body"><h1 id="a882a411-ad39-49e8-8cdc-f577cc03fe41" class=""><details open=""><summary>Table of Contents</summary></details></h1><div class="indented"><nav id="9c47d416-5353-4493-ae1b-94708978a8c4" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a882a411-ad39-49e8-8cdc-f577cc03fe41">Table of Contents</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#51d40685-665e-4c43-bd37-64fae6a46da3">Resources</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e5752ce7-d744-4e4a-acb1-6b8e220d07f4">Website Notes</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#78d0f333-8aa6-42e4-8b9f-3747207b898d">Basic Types</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#86036c59-02c7-4e21-a10d-909ac847de2b">Types in Elixir</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ba929417-9a24-4a0e-8ea0-503b09c11751">Functions</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0d281787-a533-41c2-8101-42b9b2fd512a">Atoms</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e4cb7378-7367-46a1-aae1-a16e9ddd93f2">Strings</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e7d9e75e-8a9d-4adb-b32d-445b90c17354">Anonymous functions</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0aa5f3a1-0eca-4f0f-844c-4551be982cfd">Linked Lists</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#3c98b1ee-81a8-48bb-9d08-a2c569b4c33e">Head &amp; Tail example</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e1d09579-4f18-4e00-a432-b3a33b3f67d9">Tuples</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e418550d-2959-4545-80fb-c0c5b235120e">Lists/Tuples</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5bfd32c1-bd64-407f-a1a0-7614bc603a18">Basic Operators</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c5fbd0bb-14c3-485a-bdcb-c27a6cbe2a7f">Pattern Matching</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#600cc6cd-99cb-405a-a4eb-1c30b953518e">The pin operator</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#10141ebc-4211-44b8-9ae7-0dffd288f51d">Conditionals</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4134490b-40ba-4eaa-97f0-539303c873ca">case</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#079063dc-97b9-4cdc-abb2-6e9ae79b8edc">cond</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#15b7fc20-84c0-47fd-b8dc-637ae41f11d7">if and unless</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#be9c2af7-ce69-4dd2-b24a-38bb9387fd25">do/end blocks</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#cf031354-512c-4bc2-86ed-ad2705560af4">Strings</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#096547a5-8023-4981-8b69-afc3be126cb2">Unicode and Code Points</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#52af0a1c-1cb5-493d-9fc5-d7229f917844">UTF-8 and Encodings</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c26a2a0c-f73e-4402-9cea-b030b2a7c65a">Bitstrings</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#bd64d94d-9d3d-423f-a912-61cd548b3d2a">Binaries</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#dac8e3fb-52a8-425a-801e-f16149ee091f">Charlists</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b43c6ec2-1605-48ee-9a6a-a403ddb5ec10">Keyword lists and maps</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4bb8265a-6327-4c42-90f0-506da17e1706">Keyword lists</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#35b9377d-ef35-4733-bb55-739d1926d4af">Maps</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e193bd89-63c6-4cad-bbef-67a702237aef">Nested Data structures</a></div></nav><p id="6c3cc0cf-79b9-49de-a05f-9b817ee80550" class="">
+</p></div><h1 id="51d40685-665e-4c43-bd37-64fae6a46da3" class="">Resources</h1><ul id="0eb9eda3-c548-49e3-a9a0-299fbfc9c252" class="bulleted-list"><li style="list-style-type:disc">Elixir Standard Library <a href="https://hexdocs.pm/elixir/Kernel.html#content">https://hexdocs.pm/elixir/Kernel.html#content</a></li></ul><ul id="c0e4fa67-fef4-45ac-8d67-cc58caf93a8b" class="bulleted-list"><li style="list-style-type:disc">How to publish a package with Mix <a href="https://hex.pm/docs/publish">https://hex.pm/docs/publish</a></li></ul><ul id="68508090-9365-4c42-8846-7acfd759f2e4" class="bulleted-list"><li style="list-style-type:disc"><a href="https://hex.pm/docs/publish">https://hex.pm/docs/publish</a></li></ul><h1 id="e5752ce7-d744-4e4a-acb1-6b8e220d07f4" class="">Website Notes</h1><h2 id="78d0f333-8aa6-42e4-8b9f-3747207b898d" class="">Basic Types</h2><h3 id="86036c59-02c7-4e21-a10d-909ac847de2b" class="">Types in Elixir</h3><p id="287d6486-1640-4829-94de-1103919cc25a" class="">integer, float, boolean, <strong>atom</strong>, <strong>symbol</strong>, string, list, tuple</p><blockquote id="042a5a43-7cc4-4a01-8dac-b45674960e05" class="">what do atoms actually do? uses :atom notation</blockquote><h3 id="ba929417-9a24-4a0e-8ea0-503b09c11751" class="">Functions</h3><p id="981c659f-fc3a-47a3-82a6-fbd101918a5d" class="">Functions are identified <em>both</em> by name and arity.</p><pre id="2d6f7f78-275e-4296-be66-de6b59d001b7" class="code code-wrap"><code>h round/1# documents round/1</code></pre><h3 id="0d281787-a533-41c2-8101-42b9b2fd512a" class="">Atoms</h3><pre id="4b35f758-c230-47fa-80f4-1d1258ef401a" class="code code-wrap"><code>:apple == :apple# true:apple == :orange</code></pre><p id="6ba6ec35-27c0-4c7f-83e9-42147ec6018a" class="">The booleans <code>true</code> and <code>false</code> are also atoms</p><p id="dbbc82c9-679e-4859-af26-35e7aa898d04" class="">Alias – start in uppercase and are also atoms.</p><h3 id="e4cb7378-7367-46a1-aae1-a16e9ddd93f2" class="">Strings</h3><ul id="02b515a1-4dfd-4e11-9cb1-02d2df49121d" class="bulleted-list"><li style="list-style-type:disc">utf-8</li></ul><pre id="72a554c8-25fc-46d8-96fc-ac7f5abe9940" class="code code-wrap"><code>string = :world&quot;hello #{string}&quot;# &quot;hello world&quot;</code></pre><h3 id="e7d9e75e-8a9d-4adb-b32d-445b90c17354" class="">Anonymous functions</h3><pre id="a7e1e0af-d246-4bd1-8857-ef5d36473255" class="code code-wrap"><code>add = fn a, b -&gt; a + b endadd.(1, 2)# 3is_function(add)# truedouble = fn a -&gt; add.(a, a) end</code></pre><p id="f821862f-8156-4c5c-9de6-36843ff5638b" class="">A variable assigned inside a function does <em>not</em> affect its surrounding scope.</p><h3 id="0aa5f3a1-0eca-4f0f-844c-4551be982cfd" class="">Linked Lists</h3><p id="5d5510a7-7812-4bf9-bd8d-fa8100e91e27" class="">Concatenate using ++/2 and –/2 operators.</p><p id="a10884a0-0dff-44f7-b9df-b8d12ca14853" class="">Elixir data structures are immutable.</p><h3 id="3c98b1ee-81a8-48bb-9d08-a2c569b4c33e" class="">Head &amp; Tail example</h3><pre id="0117e8ac-d4b0-483d-b695-f8a29d94b1ad" class="code code-wrap"><code>list = [1, 2, 3]hd(list)# 1tl(list)# [2, 3]</code></pre><pre id="0ddfe64c-cf68-446c-b2ea-49c4761c7b7e" class="code code-wrap"><code># charlist for hello[104, 101, 108, 108, 111]</code></pre><h3 id="e1d09579-4f18-4e00-a432-b3a33b3f67d9" class="">Tuples</h3><p id="b8075185-b6a1-4661-8c5c-9565082c497c" class="">Can hold any value</p><pre id="c9765e01-ed10-4cda-9365-96ee2bfeb0e8" class="code code-wrap"><code>{:ok, &quot;hello&quot;}tuple_size {:ok, &quot;hello&quot;}# 2</code></pre><h3 id="e418550d-2959-4545-80fb-c0c5b235120e" class="">Lists/Tuples</h3><p id="11cd7fd7-9fbf-42ed-a116-819c87ce4b70" class="">Common pattern is to use a tuple with ok/error</p><pre id="d706670b-67fe-4ba6-bad0-4624c85a9f31" class="code code-wrap"><code>File.read(&quot;path/file&quot;){:ok, &quot;... contents ...&quot;}File.read(&quot;path/file&quot;){:error, :enoent}</code></pre><p id="7ea854fc-ea96-4080-8351-7130745704c0" class="">When counting elements…</p><ul id="5e19fc79-e9ee-4835-862b-80d87572b19c" class="bulleted-list"><li style="list-style-type:disc"><code>size</code> if the operation is in constnat time</li></ul><ul id="73a7dfd5-cae4-469e-93e2-a1e3d8d02866" class="bulleted-list"><li style="list-style-type:disc"><code>length</code> if the operation is linear time</li></ul><h2 id="5bfd32c1-bd64-407f-a1a0-7614bc603a18" class="">Basic Operators</h2><pre id="cd84c068-1d69-420c-864f-a8ead11b5d58" class="code code-wrap"><code># ++ &amp; -- to mainpulate lists[1, 2] ++ [3, 3]# [1, 2, 3, 3][1, 2, 3] -- [2]# [1, 3]# or and and are short-circuit operatorsfalse and raise(&quot;This error will never be raised&quot;)true or raise(&quot;This error will never be raised&quot;)1 &lt; :atom</code></pre><p id="2d4daa45-1c42-4688-bf52-0e21dca2dc72" class="">Sorting order defined below</p><pre id="ac6b047b-24a8-453d-bcdd-08322cfe6799" class="code code-wrap"><code>number &lt; atom &lt; reference &lt; function &lt; port &lt; pid &lt; tuple &lt; map &lt; list &lt; bitstring</code></pre><h2 id="c5fbd0bb-14c3-485a-bdcb-c27a6cbe2a7f" class="">Pattern Matching</h2><p id="e393d114-483e-4395-94ad-fb160f4eeeba" class=""><code>=</code> is known as the match operator</p><pre id="6178b3b2-e4be-4c2e-b0b6-3e41fea347c0" class="code code-wrap"><code># match operator is not only used to match against simple values but more complex data types# destructure{ a, b, c} = {:hello, &quot;world&quot;, 42}# a# :hello</code></pre><h3 id="600cc6cd-99cb-405a-a4eb-1c30b953518e" class="">The pin operator</h3><p id="a86beaff-297e-497f-8b2d-35decd2579e3" class="">Variables in Elixir can rebound. [1] What does that mean?</p><pre id="d2aa5fdc-a1a3-4f54-bbcf-d92c982fd06e" class="code code-wrap"><code>x = 1x = 2^x = 2</code></pre><p id="991fab62-e7d2-40b0-9455-68647dab16e8" class="">Pin operator can be used inside other pattern matches, such as tuples or lists.</p><pre id="fc138e9d-63a3-48ab-8f46-279b2de013a5" class="code code-wrap"><code>[^x, 2, 3] = [1, 2, 3]{y, ^x} = {2, 1}# y# 2</code></pre><p id="a9c0de7b-ac1f-4704-ae9c-5d6fd839d741" class="">If you don’t care about a particular value in a pattern, it is a common practice to bind those values to <code>_</code></p><pre id="ef731c04-9ee0-40ce-a0fb-6edbcce950fc" class="code code-wrap"><code>[head | _] = [1, 2, 3]# [1, 2, 3]# head# 1</code></pre><p id="7e74a499-9193-4116-b7f3-3c96ac593e5b" class="">You can never read from <code>_</code>!</p><p id="4869787a-f5b6-4459-a509-4b7d23c3d606" class="">Although pattern matching allows us to build powerful constructs, its usage is limited. For instance, you cannot make function calls on the left side of a match.</p><pre id="2229f50b-1f3e-43e6-8107-ece5f3b511d0" class="code code-wrap"><code>length([1, [2], 3]) = 3</code></pre><h2 id="10141ebc-4211-44b8-9ae7-0dffd288f51d" class="">Conditionals</h2><ul id="a1f6db11-faca-4335-9b22-1f149af6e96e" class="bulleted-list"><li style="list-style-type:disc"><code>case</code></li></ul><ul id="12405800-7005-4018-8a14-fa627569c110" class="bulleted-list"><li style="list-style-type:disc"><code>cond</code></li></ul><ul id="23b4a00c-a26d-4ed7-81a3-b70ecf8533cd" class="bulleted-list"><li style="list-style-type:disc"><code>if</code> / <code>unless</code></li></ul><ul id="31643d15-3990-4a26-8937-a700a73d9f55" class="bulleted-list"><li style="list-style-type:disc"><code>do</code> / <code>end</code></li></ul><h3 id="4134490b-40ba-4eaa-97f0-539303c873ca" class="">case</h3><pre id="7fb5f4d3-7787-411d-87c6-c9c6132d1425" class="code code-wrap"><code>case {1, 2, 3} do</code></pre><pre id="bcc0bc85-114d-42eb-95c5-7c893c0080c1" class="code code-wrap"><code>case {1, 2, 3} do    {4, 5, 6} -&gt;        &quot;This clause won&#x27;t match.&quot;    {1, x, 3} -&gt;        &quot;This clause will match and bind x to 2 in this clause&quot;    _ -&gt;        &quot;This clause will match any value&quot;end</code></pre><p id="124ec75a-09a3-4149-bb80-26a55f487c81" class="">If you want to pattern match against an existing variable, you need to use the <code>^</code> operator</p><pre id="53632e34-71d6-4476-95f8-8ccd868a0943" class="code code-wrap"><code>x = 1case 10 do    # matches against the existing x variable    ^x -&gt; &quot;Won&#x27;t match&quot;    _ -&gt; &quot;Will match&quot;end&quot;Will match&quot;</code></pre><p id="844579e8-ac07-49fe-b25e-815fd1f0f33f" class="">Clauses also allow extra conditions to be specified via guards</p><pre id="4689119a-2a6a-49e7-96fe-2cd76fbc7bed" class="code code-wrap"><code>case {1, 2, 3} do    {1, x, 3} when x &gt; 0 -&gt;        &quot;Will match&quot;    _ -&gt;        &quot;Would match, if guard condition were NOT satisfied&quot;end&quot;Will match&quot;</code></pre><p id="8b1232bc-6707-474a-b4ba-70fa5fcf29c1" class="">The first clause above will only match when <code>x</code> is positive.</p><p id="bd1c4e56-462e-4153-90d5-f782b2b41ff9" class="">Keep in mind errors in guard do not leak but simply make the guard fail</p><pre id="4015191e-4058-482b-baa8-b4a7b7c8cb29" class="code code-wrap"><code>case 1 do    x when hd(x) -&gt; &quot;Won&#x27;t match&quot;    x -&gt; &quot;Got #{x}&quot;end</code></pre><p id="cca675a6-a57e-4b16-a833-0ec57e3d4262" class="">If none of the clauses match, an error is raised</p><pre id="5429f2a8-1b99-4979-9fd6-490f3d099088" class="code code-wrap"><code>case :ok do    :error -&gt; &quot;Won&#x27;t match&quot;end</code></pre><blockquote id="21c0c7b4-178c-4083-90f8-abe4c77a2ccd" class="">(CaseClauseError) no case clause matching: :ok</blockquote><p id="e6c6dd1f-5cad-4f5f-8d6f-16bc9cf4c8ba" class="">Anonymous functions can also have multiple clauses and guards</p><pre id="8e3985a9-071b-460b-b793-269f0d95c87d" class="code code-wrap"><code>f = fn    x, y when x &gt; 0 -&gt; x + y    x, y -&gt; x * yend</code></pre><p id="ed14db01-eff4-4684-a820-1264a8dee600" class="">The number of arguments in each anonymous function clause needs to be the same, otherwise an error is raised.</p><pre id="b2242f6e-7d60-46f2-a202-e4c6df6faba3" class="code code-wrap"><code>f2 = fn    # arity of 2    x, y when x &gt; 0 -&gt; x + y    # arity of 3    x, y, z -&gt; x * y + zend--- compile error: cannot mix clauses with different arities in anonymous functions</code></pre><h3 id="079063dc-97b9-4cdc-abb2-6e9ae79b8edc" class="">cond</h3><p id="44de280d-d780-49c4-bb66-188a5057ffa1" class=""><code>case</code> is useful when you need to match against different values. However, in many circumstances, we want to check different conditions and find the first one that does not evaluate to <code>nil</code> or <code>false</code></p><pre id="bee163c1-cf8f-480f-8fb4-0f63d417a2b2" class="code code-wrap"><code>cond do    2 + 2 == 5 -&gt;        &quot;This will not be true&quot;    2 * 2 == 3 -&gt;        &quot;Nor this&quot;    1 + 1 == 2 -&gt;        &quot;But this will&quot;end</code></pre><pre id="457c9e61-6864-4c97-8e57-6c92713456f0" class="code code-wrap"><code>cond do    2 + 2 == 5 -&gt;        &quot;this is never true&quot;    2 * 3 == 3 -&gt;        &quot;nor this&quot;    true -&gt;        &quot;This is always true (equivalent to else)&quot;end</code></pre><p id="a5743862-4b76-49f0-ab91-75d37f4f58fd" class=""><code>cond</code> considers any value besides <code>nil</code> and <code>false</code> to be true</p><pre id="e7bfefbf-dbf4-4617-bf8f-d2a2dd96592d" class="code code-wrap"><code>cond do    hd([1, 2, 3]) -&gt;        &quot;1 is considered as true&quot;end</code></pre><h3 id="15b7fc20-84c0-47fd-b8dc-637ae41f11d7" class="">if and unless</h3><pre id="808a6de1-8f8b-41cc-b75d-d1acbeee92c6" class="code code-wrap"><code>if true do    &quot;This works!&quot;endunless true do    &quot;This will never be seen&quot;end</code></pre><blockquote id="d2906be5-1afc-4b82-98a1-38afca06a35f" class="">if/2 and unless/2 are implemented as macros; they aren’t special language constructs</blockquote><h3 id="be9c2af7-ce69-4dd2-b24a-38bb9387fd25" class="">do/end blocks</h3><pre id="315f54eb-2797-4753-b4a5-70bbaf04b0ca" class="code code-wrap"><code>if true do    a = 1 + 2    a + 10end# 13</code></pre><p id="8553abaa-c258-4e4f-9bd5-ec03b845d696" class=""><code>Do/end</code> blocks are always bound to the outermost function call.</p><h2 id="cf031354-512c-4bc2-86ed-ad2705560af4" class="">Strings</h2><p id="6992801d-7cad-4f76-8bd1-99a84c4a93bd" class="">Strings are very comprehensive in Elixir, and follow a more-developed spec than in other languages.</p><h3 id="096547a5-8023-4981-8b69-afc3be126cb2" class="">Unicode and Code Points</h3><p id="b12ab05b-aa94-4e07-9069-ec07c95bb271" class="">The Unicode standard acts as an official registry of virtually all characters. Unicode organizes all the characters into charts, and each is given an index known as a Code Point.</p><p id="cf9b0423-ecff-4ad5-b34e-cba53ceeb59b" class="">In elixir, you can use the <code>?</code> operator in front of a literal to reveal its code point</p><pre id="772f7647-b4ae-4cb5-ad4c-5882ae7c9de3" class="code code-wrap"><code>?a# 97?é# 233</code></pre><h3 id="52af0a1c-1cb5-493d-9fc5-d7229f917844" class="">UTF-8 and Encodings</h3><p id="f9199262-83c9-4c9d-8acd-731ba465077b" class="">Whereas the code point is <em>what</em> we store, encodings are <em>how</em> we store them. Encoding is just an implementation. UTF-8 uses <em>variable width</em> character encoding.</p><blockquote id="58f1ae4c-5e94-4722-bbfc-f9d2c6d11a5f" class="">String.length/1 counts graphemes but byte_size/1 counts raw bytes!</blockquote><p id="533ba513-0c77-40d3-b657-f447f27e8ffc" class="">A common trick in Elixir is to see the binary representation of a string by concatenating the null byte <code>&lt;&lt;0&gt;&gt;</code> to it</p><pre id="dd068248-5fe8-400e-8bf8-05f4312f21c5" class="code code-wrap"><code>&quot;hełło&quot; &lt;&gt; &lt;&lt;0&gt;&gt;# &lt;&lt;104, 101, 197, 130, 197, 130, 111, 0&gt;&gt;
+&quot;Pokémon&quot; &lt;&gt; &lt;&lt;0&gt;&gt;# &lt;&lt;80, 111, 107, 195, 169, 109, 111, 110, 0&gt;&gt;</code></pre><p id="5e71dc9c-38ae-4fc0-b70d-4fa5a3cf5a72" class="">Note that both of these have the <code>0</code> from the null byte at the end</p><p id="daa10397-63cd-409d-b76b-ecdb5ff2553b" class="">Or by using <code>IO.inspect/2</code></p><pre id="664fd6c5-0912-4225-a140-9d8c21001efc" class="code code-wrap"><code>IO.inspect(&quot;hełło&quot;, binaries: :as_binaries)# &lt;&lt;104, 101, 197, 130, 197, 130, 111&gt;&gt;</code></pre><h3 id="c26a2a0c-f73e-4402-9cea-b030b2a7c65a" class="">Bitstrings</h3><p id="f8c2d5c6-4249-45e3-869e-722c8392387b" class="">Bitstrings are a fundamental data type in Elixir, denoted with <code>&lt;&lt;&gt;&gt;</code> syntax. <em>A bitstring is a contiguous sequences of bits in memory</em></p><p id="2bc9a537-4a18-4dc3-8768-5562874ff321" class="">When a value exceeds the number of bits it can hold, it gets cut off</p><pre id="47eabde0-875b-4cf6-a9a7-f94dff75080a" class="code code-wrap"><code>&lt;&lt;1&gt;&gt; === &lt;&lt;257&gt;&gt;# true</code></pre><h3 id="bd64d94d-9d3d-423f-a912-61cd548b3d2a" class="">Binaries</h3><p id="1be5c2f3-f0be-4c4e-b1e7-f99deacbb9bd" class="">A binary is a bitstring where the number of bits is divisible by 8</p><pre id="afef6956-4735-481c-abd0-d2cf82752cd1" class="code code-wrap"><code>iex&gt; is_binary(&quot;hello&quot;)trueiex&gt; is_binary(&lt;&lt;239, 191, 19&gt;&gt;)trueiex&gt; String.valid?(&lt;&lt;239, 191, 19&gt;&gt;)false</code></pre><h3 id="dac8e3fb-52a8-425a-801e-f16149ee091f" class="">Charlists</h3><p id="4d6b26f1-2450-4cd5-a488-bd90963e74f8" class="">A charlist is a list of integers where all the integers are valid code points. Whereas strings (i.e. binaries) are created using double-quotes, charlists are single quoted.</p><p id="220b0669-f31f-4b8c-b4a5-d611d6873708" class="">By default, only code points above ASCII get printed as lists</p><pre id="c5aa0d02-aeaf-47d0-b363-609cab3e75f6" class="code code-wrap"><code>iex&gt; &#x27;hello&#x27;&#x27;hello&#x27;iex&gt; &#x27;hełło&#x27;[104, 101, 322, 322, 111]</code></pre><blockquote id="ab468547-d4f5-48b2-9e4d-cc9386c169db" class="">Strings use &lt;&gt; to concatenate but lists use ++</blockquote><p id="24627141-b1f9-4bb4-a94f-fb4b5d584fb0" class="">Because charlists are lists :]</p><h2 id="b43c6ec2-1605-48ee-9a6a-a403ddb5ec10" class="">Keyword lists and maps</h2><p id="3a7daede-07ef-483c-a35b-4ad03bb910c4" class="">Associative data structures are structures that associate certain value(s) to a key. Referred to as dictionaries, hashes, etc. Keyword lists and maps are the main ones in Elixir.</p><h3 id="4bb8265a-6327-4c42-90f0-506da17e1706" class="">Keyword lists</h3><p id="3beefd11-a55f-42d5-9b2e-11fb19f1bf08" class="">Elixir uses a list of tuples, and the first item in a key is an atom</p><pre id="4f4f3c53-b5ee-416c-86f2-ec895dad435c" class="code code-wrap"><code>list = [{:a, 1}, {:b, 2}]# [a: 1, b: 2]# special syntax for defining a keyword listlist == [a: 1, b: 2]</code></pre><p id="a935d6bd-b76c-4b44-b9bc-fe0acabd995d" class="">We can also use the <code>++</code> operator to add new values</p><pre id="d8798ab7-bbd6-4fe0-a985-a04c9b48b262" class="code code-wrap"><code>list ++ [c: 3]# [a: 1, b: 2, c: 3]</code></pre><p id="1c689595-5d0b-483f-90a6-9b44f1aa3a8a" class="">First value is the list is the one fetched on lookup</p><pre id="dbb504af-5896-4ba4-8d17-ba0d37a3b64b" class="code code-wrap"><code>[a: 0, a: 1, b: 2]new_list[:a]# 0</code></pre><p id="9a10a7ce-e301-4cc8-a479-775db7677fea" class="">Keyword lists have three special characteristics</p><ul id="190eaf78-ddd7-4dc6-a9a0-e90bef6d4ad6" class="bulleted-list"><li style="list-style-type:disc">Keys must be atoms</li></ul><ul id="47684f21-09b5-4359-b228-80eeae992610" class="bulleted-list"><li style="list-style-type:disc">Keys are ordered, as specificed by the developer</li></ul><ul id="1feab0f6-0805-4c06-8250-328e6e338214" class="bulleted-list"><li style="list-style-type:disc">Keys <em>can</em> be given more than once</li></ul><p id="ffca93f1-2417-4523-8b20-079d1111543e" class="">As an example, the <code>if/2</code> macro supports the following syntax</p><pre id="f8081c06-048a-4fae-b7dd-ceb9b55ec1f9" class="code code-wrap"><code>if false, do: :this, else: :that# :that</code></pre><p id="0fc880b0-2a4a-4e10-ad71-1327edf20823" class="">The <code>do:</code> and <code>else:</code> pairs form a keyword list. The call above is equivalent to</p><pre id="ae98ab80-61ad-4861-9178-32df81630d52" class="code code-wrap"><code>if(false, [do: :this, else: :that])</code></pre><p id="8044c44b-9061-43ca-a88d-470e64637e3f" class="">Although we can pattern match on keyword lists, it is rarely done in practice since pattern matching on lists requires the number of items and their order to match.</p><p id="37d6078a-be7a-4bcd-b539-8e5f4cdf739a" class="">Keyword lists have the same performance impact as a regular list.</p><blockquote id="71606db0-b665-43b0-aa01-0c089599ff95" class="">If you need to store many items or guarantee one-key associations with at maximum one-value, you should use maps instead.</blockquote><h3 id="35b9377d-ef35-4733-bb55-739d1926d4af" class="">Maps</h3><p id="ba50fbf0-8d50-4a0d-8ba1-1fa1844c29d7" class="">Whenever you need a key-value store, maps are the “go to” data structure in Elixir. A map is created using the <code>%{}</code> syntax</p><pre id="3335c174-433a-400c-9912-1471893dcf44" class="code code-wrap"><code>map = %{:a =&gt; 1, 2 =&gt; :b}map[:a]# 1map[2]# :bmap[:c]# nil</code></pre><p id="2954190d-e3c4-4681-9f0a-3a3b26d0c027" class="">In contrast to keyword lists, maps are great for pattern matching</p><pre id="590151db-c499-4266-9b6a-1aa62f415f2f" class="code code-wrap"><code>%{} = %{:a =&gt; 1, 2 =&gt; :b}%{2 =&gt; :b, :a =&gt; 1}%{a =&gt; :b, :a =&gt; 1}1%{:c =&gt; c} = %{:a =&gt; 1, 2 =&gt; :b}# MatchError!  no match</code></pre><blockquote id="215ea1ea-2d5f-4002-80c6-192c6e41f4ad" class="">An empty map matches all maps</blockquote><p id="5d652c73-5c5e-43c1-90a7-859039196657" class="">Maps also have their own syntax for accessing atom keys</p><pre id="da3c51df-17e9-4697-b81a-0744a1771035" class="code code-wrap"><code>map = %{:a =&gt; 1, 2 =&gt; :b}map.a# 1map.c# KeyError</code></pre><h3 id="e193bd89-63c6-4cad-bbef-67a702237aef" class="">Nested Data structures</h3><p id="cb4867dc-6a92-4639-8afb-e28dc3f4525b" class="">Often we will have maps inside maps, keyword lists inside maps, etc. Elixir provides conveniences for nested data structures</p><p id="34efcacf-c1e9-4cf3-b499-97b33510b647" class="">Given this structure…</p><pre id="97b1ff42-6b1a-4bb0-8f54-93090c52e8c1" class="code code-wrap"><code>users = [    # keyword lists of users where each value is a map    john: %{name: &quot;John&quot;, age: 22, languages: [&quot;Erlang&quot;, &quot;Ruby&quot;]}    mary: %{name: &quot;Mary&quot;, age: 20, languages: [&quot;Elixir&quot;, &quot;F#&quot;]}]</code></pre><p id="deebc999-ab2d-46ca-9f02-5d632caa950e" class="">To access the age for john, we could write:</p><pre id="78da5c3b-0675-4e3f-abe3-e23656553425" class="code code-wrap"><code>users[:john].age</code></pre><p id="6771dfe5-b805-4d0b-aa31-bf7002fa90f4" class="">To update the value</p><pre id="a6fa4e7b-e8f9-4a22-bbf3-281aab967964" class="code code-wrap"><code>users = put_in users[:john].age, 32</code></pre><p id="82a52a2e-9d09-41e4-a2a5-d42dafddd6f6" class="">To remove a value</p><pre id="63297627-ca6b-49a6-bda4-9b6ec8ca83f1" class="code code-wrap"><code>users = update_in users[:mary].languages, fn languages -&gt;    List.delete(languages, &quot;F#&quot;) end</code></pre></div></article></body></html>
